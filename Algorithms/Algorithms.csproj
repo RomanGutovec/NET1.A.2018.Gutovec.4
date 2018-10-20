@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EuclideanAlgorithm.cs" />
     <Compile Include="ExtensionDouble.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransformerToWords.cs" />
