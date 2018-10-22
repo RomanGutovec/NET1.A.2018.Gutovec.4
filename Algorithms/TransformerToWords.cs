@@ -80,6 +80,34 @@ namespace Algorithms
             return resultString.ToString();
         }
 
+        public static string TransformToIEEEFormat(double[] arrayOfDoubles)
+        {
+            if (arrayOfDoubles == null)
+            {
+                throw new ArgumentNullException($"Array {nameof(arrayOfDoubles)} have null value");
+            }
+
+            if (arrayOfDoubles.Length == 0)
+            {
+                throw new ArgumentException($"Array {nameof(arrayOfDoubles)} is empty");
+            }
+
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-Us");
+            StringBuilder resultString = new StringBuilder();
+
+            for (int i = 0; i < arrayOfDoubles.Length; i++)
+            {
+                string representation = arrayOfDoubles[i].GetStringviewOfDouble();
+                TransformerOneDoubleToWord(representation, resultString);
+                if (i != arrayOfDoubles.Length - 1)
+                {
+                    resultString.Append(", ");
+                }
+            }
+
+            return resultString.ToString();
+        }
+
         private static void TransformerOneDoubleToWord(string representation, StringBuilder resultString)
         {
             for (int i = 0; i < representation.Length; i++)
