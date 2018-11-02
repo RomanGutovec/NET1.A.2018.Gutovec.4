@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace Algorithms
 {
+    public delegate StringBuilder TransformerOneDouble(double oneNumber);
+
     /// <summary>
     /// Transforms numbers with floating point 
     /// to string with string view of each digit or sign
@@ -14,36 +16,36 @@ namespace Algorithms
     public static class TransformerToWords
     {
         private static readonly string[] digitsInWords =
-      {
-        "zero",
-        "one",
-        "two",
-        "three",
-        "four",
-        "five",
-        "six",
-        "seven",
-        "eight",
-        "nine",
-        "dot",
-        "negative"
-    };
+            {
+            "zero",
+            "one",
+            "two",
+            "three",
+            "four",
+            "five",
+            "six",
+            "seven",
+            "eight",
+            "nine",
+            "dot",
+            "negative"
+            };
 
         private static readonly char[] digitsLikeChars =
             {
-        '0',
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9',
-        '.',
-        '-',
-    };
+            '0',
+            '1',
+            '2',
+            '3',
+            '4',
+            '5',
+            '6',
+            '7',
+            '8',
+            '9',
+            '.',
+            '-',
+            };
 
         /// <summary>
         /// Transform each digit of numbers with floating point
@@ -69,12 +71,33 @@ namespace Algorithms
             StringBuilder resultString = new StringBuilder();
             for (int i = 0; i < arrayOfDoubles.Length; i++)
             {
-                string representation = arrayOfDoubles[i].ToString();
-                TransformerOneDoubleToWord(representation, resultString);
+                resultString.Append(TransformerOneDoubleToWord(arrayOfDoubles[i]));
                 if (i != arrayOfDoubles.Length - 1)
                 {
                     resultString.Append(", ");
                 }
+            }
+
+            return resultString.ToString();
+        }
+
+        public static string TransformToWords(double[] arrayOfDoubles, TransformerOneDouble transformOneDouble)
+        {
+            if (arrayOfDoubles == null)
+            {
+                throw new ArgumentNullException($"Array {nameof(arrayOfDoubles)} have null value");
+            }
+
+            if (arrayOfDoubles.Length == 0)
+            {
+                throw new ArgumentException($"Array {nameof(arrayOfDoubles)} is empty");
+            }
+
+            StringBuilder resultString = new StringBuilder();
+            TransformerOneDouble transformation = TransformerOneDoubleToWord;
+            for (int i = 0; i < arrayOfDoubles.Length; i++)
+            {
+                resultString.Append(transformation(arrayOfDoubles[i]));
             }
 
             return resultString.ToString();
@@ -97,8 +120,7 @@ namespace Algorithms
 
             for (int i = 0; i < arrayOfDoubles.Length; i++)
             {
-                string representation = arrayOfDoubles[i].GetStringviewOfDouble();
-                TransformerOneDoubleToWord(representation, resultString);
+                resultString.Append(TransformerOneDoubleToWord(arrayOfDoubles[i]));
                 if (i != arrayOfDoubles.Length - 1)
                 {
                     resultString.Append(", ");
@@ -108,13 +130,17 @@ namespace Algorithms
             return resultString.ToString();
         }
 
-        private static void TransformerOneDoubleToWord(string representation, StringBuilder resultString)
+        private static StringBuilder TransformerOneDoubleToWord(double number)
         {
+            string representation = number.ToString();
+            StringBuilder resultString = new StringBuilder();
             for (int i = 0; i < representation.Length; i++)
             {
                 resultString.Append(digitsInWords[Array.IndexOf(digitsLikeChars, representation[i])]);
                 resultString.Append(' ');
             }
+
+            return resultString;
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Algorithms
     /// </summary>
     public class EuclideanAlgorithm
     {
+        #region Gcd classic Euclid's algorithm
         /// <summary>
         /// Find greater common divisor of numbers
         /// by classic Euclidean algorithm
@@ -70,7 +71,7 @@ namespace Algorithms
         /// <returns>value of greater common divisor</returns>
         public static int GCDEuclid(int firstNumber, int secondNumber, int thirdNumber)
         {
-            return GCDEuclid(firstNumber, GCDRecursion(secondNumber, thirdNumber));
+            return GCD3Elements(GCDEuclid, firstNumber, secondNumber, thirdNumber);
         }
 
         /// <summary>
@@ -82,26 +83,8 @@ namespace Algorithms
         /// <param name="firstNumber">first source number</param>
         /// <param name="secondNumber">second source number</param>
         /// <returns>value of greater common divisor</returns>
-        public static int GCDEuclid(int firstNumber, params int[] nextNumbers)
-        {
-            if (nextNumbers.Length < 1)
-            {
-                throw new ArgumentException("Amount of parametres must be greater then two");
-            }
-
-            if (nextNumbers == null)
-            {
-                throw new NullReferenceException($"Argument {nameof(nextNumbers)} have null value");
-            }
-
-            int resultNumber = Math.Abs(GCDEuclid(firstNumber, nextNumbers[0]));
-            for (int i = 1; i < nextNumbers.Length; i++)
-            {
-                resultNumber = Math.Abs(GCDEuclid(resultNumber, nextNumbers[i]));
-            }
-
-            return resultNumber;
-        }
+        public static int GCDEuclid(params int[] numbers)
+         => GCDManyElements(GCDEuclid, numbers);
 
         /// <summary>
         /// Find greater common divisor of numbers
@@ -128,7 +111,7 @@ namespace Algorithms
         public static int GCDEuclid(int firstNumber, int secondNumber, int thirdNumber, out long elapsedMillisecond)
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            int resultNumber = GCDEuclid(firstNumber, GCDEuclid(secondNumber, thirdNumber));
+            int resultNumber = GCD3Elements(GCDEuclid, firstNumber, secondNumber, thirdNumber);
             watch.Stop();
             elapsedMillisecond = watch.ElapsedMilliseconds;
             return resultNumber;
@@ -143,20 +126,17 @@ namespace Algorithms
         /// <param name="firstNumber">first source number</param>
         /// <param name="secondNumber">second source number</param>
         /// <returns>value of greater common divisor</returns>
-        public static int GCDEuclid(int firstNumber, out long elapsedMillisecond, params int[] nextNumbers)
+        public static int GCDEuclid(out long elapsedMillisecond, params int[] nextNumbers)
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            int resultNumber = Math.Abs(GCDEuclid(firstNumber, nextNumbers[0]));
-            for (int i = 1; i < nextNumbers.Length; i++)
-            {
-                resultNumber = Math.Abs(GCDEuclid(resultNumber, nextNumbers[i]));
-            }
-
+            int resultNumber = GCDManyElements(GCDEuclid, nextNumbers);
             watch.Stop();
             elapsedMillisecond = watch.ElapsedMilliseconds;
             return resultNumber;
         }
+        #endregion
 
+        #region GCD Binary algorithm
         /// <summary>
         /// Find greater common divisor of numbers
         /// by Binary method
@@ -227,9 +207,7 @@ namespace Algorithms
         /// <param name="secondNumber">second source number</param>
         /// <returns>value of greater common divisor</returns>
         public static int GCDBinary(int firstNumber, int secondNumber, int thirdNumber)
-        {
-            return Math.Abs(GCDBinary(GCDBinary(firstNumber, secondNumber), thirdNumber));
-        }
+            => Math.Abs(GCD3Elements(GCDBinary, firstNumber, secondNumber, thirdNumber));
 
         /// <summary>
         /// Find greater common divisor of numbers
@@ -240,26 +218,8 @@ namespace Algorithms
         /// <param name="firstNumber">first source number</param>
         /// <param name="secondNumber">second source number</param>
         /// <returns>value of greater common divisor</returns>
-        public static int GCDBinary(int firstNumber, params int[] nextNumbers)
-        {
-            if (nextNumbers.Length < 1)
-            {
-                throw new ArgumentException("Amount of parametres must be greater then two");
-            }
-
-            if (nextNumbers == null)
-            {
-                throw new NullReferenceException($"Argument {nameof(nextNumbers)} have null value");
-            }
-
-            int resultNumber = Math.Abs(GCDBinary(firstNumber, nextNumbers[0]));
-            for (int i = 1; i < nextNumbers.Length; i++)
-            {
-                resultNumber = Math.Abs(GCDBinary(resultNumber, nextNumbers[i]));
-            }
-
-            return resultNumber;
-        }
+        public static int GCDBinary(params int[] numbers)
+        => GCDManyElements(GCDBinary, numbers);
 
         /// <summary>
         /// Find greater common divisor of numbers
@@ -287,7 +247,7 @@ namespace Algorithms
         public static int GCDBinary(int firstNumber, int secondNumber, int thirdNumber, out long elapsedMillisecond)
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            int resultNumber = GCDBinary(firstNumber, GCDBinary(secondNumber, thirdNumber));
+            int resultNumber = GCD3Elements(GCDBinary, firstNumber, secondNumber, thirdNumber);
             watch.Stop();
             elapsedMillisecond = watch.ElapsedMilliseconds;
             return resultNumber;
@@ -302,20 +262,17 @@ namespace Algorithms
         /// <param name="firstNumber">first source number</param>
         /// <param name="secondNumber">second source number</param>
         /// <returns>value of greater common divisor</returns>
-        public static int GCDBinary(int firstNumber, out long elapsedMillisecond, params int[] nextNumbers)
+        public static int GCDBinary(out long elapsedMillisecond, params int[] numbers)
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            int resultNumber = Math.Abs(GCDBinary(firstNumber, nextNumbers[0]));
-            for (int i = 1; i < nextNumbers.Length; i++)
-            {
-                resultNumber = Math.Abs(GCDBinary(resultNumber, nextNumbers[i]));
-            }
-
+            int resultNumber = GCDManyElements(GCDBinary, numbers);
             watch.Stop();
             elapsedMillisecond = watch.ElapsedMilliseconds;
             return resultNumber;
         }
+        #endregion
 
+        #region simple finder GCD
         /// <summary>
         /// Find greater common divisor of numbers
         /// </summary>
@@ -340,7 +297,7 @@ namespace Algorithms
         /// <returns>value of greater common divisor</returns>
         public static int GCDRecursion(int firstNumber, int secondNumber, int thirdNumber)
         {
-            return GCDRecursion(firstNumber, GCDRecursion(secondNumber, thirdNumber));
+            return GCD3Elements(GCDRecursion, firstNumber, secondNumber, thirdNumber);
         }
 
         /// <summary>
@@ -352,26 +309,8 @@ namespace Algorithms
         /// <param name="firstNumber">first source number</param>
         /// <param name="secondNumber">second source number</param>
         /// <returns>value of greater common divisor</returns>
-        public static int GCDRecursion(int firstNumber, params int[] nextNumbers)
-        {
-            if (nextNumbers.Length < 1)
-            {
-                throw new ArgumentException("Amount of parametres must be greater then two");
-            }
-
-            if (nextNumbers == null)
-            {
-                throw new NullReferenceException($"Argument {nameof(nextNumbers)} have null value");
-            }
-
-            int resultNumber = Math.Abs(GCDRecursion(firstNumber, nextNumbers[0]));
-            for (int i = 1; i < nextNumbers.Length; i++)
-            {
-                resultNumber = Math.Abs(GCDRecursion(resultNumber, nextNumbers[i]));
-            }
-
-            return resultNumber;
-        }
+        public static int GCDRecursion(params int[] numbers)
+         => GCDManyElements(GCDRecursion, numbers);
 
         /// <summary>
         /// Find greater common divisor of numbers
@@ -398,7 +337,7 @@ namespace Algorithms
         public static int GCDRecursion(int firstNumber, int secondNumber, int thirdNumber, out long elapsedMillisecond)
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            int resultNumber = GCDRecursion(firstNumber, GCDRecursion(secondNumber, thirdNumber));
+            int resultNumber = GCD3Elements(GCDRecursion, firstNumber, secondNumber, thirdNumber);
             watch.Stop();
             elapsedMillisecond = watch.ElapsedMilliseconds;
             return resultNumber;
@@ -413,19 +352,42 @@ namespace Algorithms
         /// <param name="firstNumber">first source number</param>
         /// <param name="secondNumber">second source number</param>
         /// <returns>value of greater common divisor</returns>
-        public static int GCDRecursion(int firstNumber, out long elapsedMillisecond, params int[] nextNumbers)
+        public static int GCDRecursion(out long elapsedMillisecond, params int[] numbers)
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            int resultNumber = Math.Abs(GCDRecursion(firstNumber, nextNumbers[0]));
-            for (int i = 1; i < nextNumbers.Length; i++)
-            {
-                resultNumber = Math.Abs(GCDRecursion(resultNumber, nextNumbers[i]));
-            }
+            int resultNumber = GCDManyElements(GCDRecursion, numbers);
 
             watch.Stop();
             elapsedMillisecond = watch.ElapsedMilliseconds;
             return resultNumber;
         }
+        #endregion
+
+        #region methods with delegates are common for all
+        private static int GCD3Elements(Func<int, int, int> gcdAlgorithmKind, int firstNumber, int secondNumber, int thirdNumber)
+           => gcdAlgorithmKind(gcdAlgorithmKind(firstNumber, secondNumber), thirdNumber);
+
+        private static int GCDManyElements(Func<int, int, int> gcdAlgorithmKind, params int[] numbers)
+        {
+            if (numbers.Length <= 1)
+            {
+                throw new ArgumentException("Must be two or more arguments");
+            }
+
+            if (numbers == null)
+            {
+                throw new NullReferenceException($"Argument {nameof(numbers)} have null value");
+            }
+
+            int result = gcdAlgorithmKind(numbers[0], numbers[1]);
+            for (int i = 2; i < numbers.Length && result != 1; i++)
+            {
+                result = gcdAlgorithmKind(result, numbers[i]);
+            }
+
+            return result;
+        }
+        #endregion
 
         private static void Swap(ref int firstNumber, ref int secondNumber)
         {

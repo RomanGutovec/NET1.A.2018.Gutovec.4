@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using NUnit.Framework;
 
 namespace Algorithms.NUnit.Tests
@@ -6,12 +7,27 @@ namespace Algorithms.NUnit.Tests
     [TestFixture]
     public class TransformerToWordsTest
     {
+        public delegate string SomeDelegateForTest(double number);
+
+        public static StringBuilder TransformerOneDoubleToWordTest(double numberFive)
+        {
+            StringBuilder result = new StringBuilder("five");
+            return result;
+        }
+
         [TestCase(new double[] { -255.3, 0.5 }, ExpectedResult = "negative two five five dot three , zero dot five ")]
         [TestCase(new double[] { 0.345, -2.657 }, ExpectedResult = "zero dot three four five , negative two dot six five seven ")]
         [TestCase(new double[] { 10.392, 15.3 }, ExpectedResult = "one zero dot three nine two , one five dot three ")]
         [TestCase(new double[] { 0.392 }, ExpectedResult = "zero dot three nine two ")]
         public string TransformToWordsMethodTest(double[] numbers)
         => Algorithms.TransformerToWords.TransformToWords(numbers);
+
+        [TestCase(new double[] { 5, 5 }, ExpectedResult = "five five ")]
+        public string TransformToWordsMethodTestWithDelegates_ArrrayWithValues_5_5(double[] numbers)
+        {
+            Algorithms.TransformerOneDouble delegateForTest = TransformerOneDoubleToWordTest;
+            return Algorithms.TransformerToWords.TransformToWords(numbers, delegateForTest);
+        }
 
         [Test]
         public void TransformToWordsTest_nullReference_TrownArgumentNullException()
