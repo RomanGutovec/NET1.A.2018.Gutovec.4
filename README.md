@@ -5,7 +5,10 @@ Day4
 Например, FilterDigit (-23.809, 0.295, 15.17) -> {"minus two three point eight zero nine", "zero point two nine five", "one five point one seven"}. 
 Разработать модульные тесты ([NUnit](https://github.com/RomanGutovec/NET1.A.2018.Gutovec.4/blob/master/Algorithms.Tests/TransformerToWordsTest.cs) или MS Unit Test) для тестирования метода.
 2. Расширить функциональную возможность типа System.Double, реализовав возможность получения строкового представления вещественного числа
-в формате IEEE 754. Готовые классы-конверторы не использовать. Разработать модульные [тесты](https://github.com/RomanGutovec/NET1.A.2018.Gutovec.4/blob/master/Algorithms.Tests/ExtenionDoubleTest.cs). [ExtensionDouble](https://github.com/RomanGutovec/NET1.A.2018.Gutovec.4/blob/master/Algorithms/ExtensionDouble.cs)
+в формате IEEE 754. Готовые классы-конверторы не использовать. Разработать модульные [тесты](https://github.com/RomanGutovec/NET1.A.2018.Gutovec.4/blob/master/Algorithms.Tests/ExtenionDoubleTest.cs).
+
+[ExtensionDouble](https://github.com/RomanGutovec/NET1.A.2018.Gutovec.4/blob/master/Algorithms/ExtensionDouble.cs)
+
 Примерные тест-кейсы
 [TestCase(-255.255, ExpectedResult = "1100000001101111111010000010100011110101110000101000111101011100")]
 [TestCase(255.255, ExpectedResult = "0100000001101111111010000010100011110101110000101000111101011100")]
