@@ -6,7 +6,7 @@ Day4
 Разработать модульные тесты ([NUnit](https://github.com/RomanGutovec/NET1.A.2018.Gutovec.4/blob/master/Algorithms.Tests/TransformerToWordsTest.cs) или MS Unit Test) для тестирования метода.
 2. Расширить функциональную возможность типа System.Double, реализовав возможность получения строкового представления вещественного числа в формате IEEE 754. Готовые классы-конверторы не использовать. Разработать модульные [тесты](https://github.com/RomanGutovec/NET1.A.2018.Gutovec.4/blob/master/Algorithms.Tests/ExtenionDoubleTest.cs). [ExtensionDouble](https://github.com/RomanGutovec/NET1.A.2018.Gutovec.4/blob/master/Algorithms/ExtensionDouble.cs)
 
-    Примерные тест-кейсы
+    Примерные тест-кейсы:
     * [TestCase(-255.255, ExpectedResult = "1100000001101111111010000010100011110101110000101000111101011100")]
     * [TestCase(255.255, ExpectedResult = "0100000001101111111010000010100011110101110000101000111101011100")]
     * [TestCase(4294967295.0, ExpectedResult = "0100000111101111111111111111111111111111111000000000000000000000")]
