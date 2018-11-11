@@ -12,11 +12,7 @@ namespace Algorithms.NUnit.Tests
         [TestCase(new double[] { 0.392 }, ExpectedResult = "zero dot three nine two ")]
         public string TransformToWordsMethodTest(double[] numbers)
         => Algorithms.TransformerToWords.TransformToWords(numbers);
-
-        [Test]
-        public void TransformToWordsTest_nullReference_TrownArgumentNullException()
-            => Assert.Throws<ArgumentNullException>(() => Algorithms.TransformerToWords.TransformToWords(null));
-
+                
         [Test]
         public void TransformToWordsTest_arrayWithCapasity0_TrownArgumentNullException()
             => Assert.Throws<ArgumentException>(() => Algorithms.TransformerToWords.TransformToWords(new double[0]));

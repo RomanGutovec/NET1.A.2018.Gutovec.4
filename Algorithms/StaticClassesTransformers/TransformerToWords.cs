@@ -53,7 +53,7 @@ namespace Algorithms
         /// <exception cref="ArgumentException">thrown when source array is empty</exception>
         /// <param name="arrayOfDoubles">array of numbers with floating point</param>
         /// <returns>each digit of source number as string</returns>
-        public static string TransformToWords(double[] arrayOfDoubles)
+        public static string TransformToWords<TSource>(TSource[] arrayOfDoubles)
         {
             if (arrayOfDoubles == null)
             {
@@ -108,7 +108,7 @@ namespace Algorithms
             return resultString.ToString();
         }
 
-        private static void TransformerOneDoubleToWord(string representation, StringBuilder resultString)
+        public static void TransformerOneDoubleToWord(string representation, StringBuilder resultString)
         {
             for (int i = 0; i < representation.Length; i++)
             {

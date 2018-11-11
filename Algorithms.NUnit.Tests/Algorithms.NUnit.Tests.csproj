@@ -56,6 +56,11 @@
   <ItemGroup>
     <Compile Include="EuclideanAlgorithmTests.cs" />
     <Compile Include="ExtenionDoubleTest.cs" />
+    <Compile Include="ExtensionTransformerCommonTests.cs" />
+    <Compile Include="Helpers\PredicatesForDigits.cs" />
+    <Compile Include="Helpers\PredicatesForStrings.cs" />
+    <Compile Include="Helpers\TransformerToIEEE.cs" />
+    <Compile Include="Helpers\TransformToWord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransformerToWordsTest.cs" />
   </ItemGroup>
